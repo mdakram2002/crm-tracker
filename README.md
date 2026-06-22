@@ -60,3 +60,39 @@ EMAIL_PASS=your-email-password
 - All opportunity APIs require `Authorization: Bearer <token>` header.
 - The backend enforces ownership rules before updating or deleting opportunities.
 - If email config is not provided, registration still works but welcome email is skipped.
+
+## Deployment
+### Backend on Render
+1. Create a new Web Service on Render and connect your GitHub repo.
+2. Set the root directory to `backend`.
+3. Use build command:
+   ```bash
+   npm install
+   ```
+4. Use start command:
+   ```bash
+   npm run start
+   ```
+5. Add environment variables in Render:
+   - `MONGO_URI` = your MongoDB Atlas connection string
+   - `JWT_SECRET` = a strong secret
+   - `JWT_EXPIRES_IN` = `2h`
+   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` if you want email support
+
+### Frontend on Vercel
+1. Create a new project on Vercel and connect your GitHub repo.
+2. Set the root directory to `frontend`.
+3. Use build command:
+   ```bash
+   npm run build
+   ```
+4. Set output directory to:
+   ```bash
+   dist
+   ```
+5. Add environment variable:
+   - `VITE_API_BASE_URL` = `https://<your-render-backend-url>/api`
+
+### Production API URL
+In production, the frontend uses `VITE_API_BASE_URL` to communicate with the backend.
+If not set, it falls back to `/api`, which is only suitable for local development with Vite proxy.

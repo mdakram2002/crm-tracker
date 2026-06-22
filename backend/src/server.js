@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const opportunityRoutes = require('./routes/opportunityRoutes');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
+require('./utils/envCheck');
 
 dotenv.config();
 
