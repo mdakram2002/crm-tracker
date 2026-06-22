@@ -5,13 +5,33 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const opportunityRoutes = require('./routes/opportunityRoutes');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
-require('./utils/envCheck');
 
 dotenv.config();
+require('./utils/envCheck');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = [
+  'https://crm-tracker-opal.vercel.app',
+  'http://localhost:5173',
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('CORS policy does not allow this origin'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+);
+app.options('*', cors());
 
 connectDB();
 
