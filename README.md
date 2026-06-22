@@ -2,9 +2,9 @@
 
 A professional, full-stack CRM opportunity tracker built for the CEO Factory Full Stack Developer assignment. The application provides secure user authentication, a shared sales pipeline, and tools to create, update, and manage sales opportunities.
 
-Live application: https://crm-tracker-opal.vercel.app
-Repository: https://github.com/mdakram2002/crm-tracker
-Backend API: https://crm-tracker-5r40.onrender.com
+- Live application: https://crm-tracker-opal.vercel.app
+- Repository: https://github.com/mdakram2002/crm-tracker
+- Backend API: https://crm-tracker-5r40.onrender.com
 
 ---
 
