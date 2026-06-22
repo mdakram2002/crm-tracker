@@ -12,9 +12,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-slate-950/95 shadow-lg shadow-slate-200/10 backdrop-blur">
+    <header className="sticky top-0 z-40 bg-slate-950/95 shadow-xl shadow-slate-900/10 backdrop-blur backdrop-saturate-150">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link to="/" className="text-xl font-semibold text-white">
+        <Link to="/" className="text-xl font-semibold tracking-tight text-white">
           CRM Tracker
         </Link>
         <div className="flex items-center gap-4">

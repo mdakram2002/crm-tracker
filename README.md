@@ -1,98 +1,144 @@
 # CRM Opportunity Tracker
 
-A secure full-stack CRM opportunity tracker built to satisfy the CEO Factory Full Stack Developer assignment.
-The app includes user authentication, authorization, and a shared sales pipeline for tracking opportunities.
+A professional, full-stack CRM opportunity tracker built for the CEO Factory Full Stack Developer assignment. The application provides secure user authentication, a shared sales pipeline, and tools to create, update, and manage sales opportunities.
 
-## Key Features
-- Secure user registration and login with JWT authentication
-- Password hashing with bcrypt
-- Ownership-based access control for update and delete actions
-- Shared opportunity pipeline across all authenticated users
+Live application: https://crm-tracker-opal.vercel.app
+Repository: https://github.com/mdakram2002/crm-tracker
+Backend API: https://crm-tracker-5r40.onrender.com
+
+---
+
+## Quick Overview
+
+- Secure user registration and login (JWT)
+- Ownership-based authorization for editing and deleting opportunities
+- Shared opportunity pipeline visible to all authenticated users
 - Opportunity fields: customer, contact, requirement, deal value, stage, priority, follow-up date, notes
-- Backend validation with express-validator
-- Frontend form validation, loading states, and professional UI styling
-- Optional email welcome notification via Nodemailer
+- Responsive React frontend with Tailwind CSS and framer-motion
 
-## Project Structure
-- `backend/` — Node.js, Express, MongoDB, JWT auth, routes, controllers, models, middleware
-- `frontend/` — Vite, React, Tailwind CSS, framer-motion, protected routes, dashboard pages
+---
 
-## Backend Routes
-- `POST /api/auth/register` — register a new user
-- `POST /api/auth/login` — authenticate and receive JWT
-- `GET /api/opportunities` — fetch all opportunities (authenticated)
-- `POST /api/opportunities` — create a new opportunity (authenticated)
-- `PUT /api/opportunities/:id` — update an opportunity you own
-- `DELETE /api/opportunities/:id` — delete an opportunity you own
+## Tech Stack
 
-## Frontend Pages
-- `/login` — sign in to the application
-- `/register` — create a new account
-- `/dashboard` — view and manage opportunities
+- Frontend: React, Vite, Tailwind CSS, framer-motion, React Router
+- Backend: Node.js, Express, MongoDB, Mongoose
+- Auth & Security: bcrypt (password hashing), JSON Web Tokens (JWT)
+- Deployment: Render (backend), Vercel (frontend)
 
-## Setup
+---
+
+## Project Layout
+
+- `backend/` — Express API, auth and opportunity routes, validation, DB connection
+- `frontend/` — React app, pages, components, auth context, assets
+
+---
+
+## API Endpoints
+
+- `POST /api/auth/register` — Create a new user
+- `POST /api/auth/login` — Login and receive JWT
+- `GET /api/opportunities` — List opportunities (auth required)
+- `POST /api/opportunities` — Create opportunity (auth required)
+- `PUT /api/opportunities/:id` — Update opportunity (owner only)
+- `DELETE /api/opportunities/:id` — Delete opportunity (owner only)
+
+---
+
+## Local Setup
+
 1. Copy environment variables:
    - `backend/.env.example` → `backend/.env`
-2. Install dependencies from the repository root:
-   ```bash
-   npm run install-all
-   ```
-3. Start backend and frontend together:
-   ```bash
-   npm run dev
-   ```
 
-## Environment Variables
-Create `backend/.env` with values similar to:
+2. Install dependencies from the repository root:
+
+```bash
+npm run install-all
+```
+
+3. Start both services locally:
+
+```bash
+npm run dev
+```
+
+### Example `backend/.env`
+
 ```env
 PORT=4000
 MONGO_URI=mongodb://localhost:27017/crm-tracker
 JWT_SECRET=your_jwt_secret_here
 JWT_EXPIRES_IN=2h
+# Optional email settings for welcome emails
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
-EMAIL_USER=your@email.com
+EMAIL_USER=you@example.com
 EMAIL_PASS=your-email-password
 ```
 
-## Notes
-- The frontend uses `localStorage` to store the JWT token.
-- All opportunity APIs require `Authorization: Bearer <token>` header.
-- The backend enforces ownership rules before updating or deleting opportunities.
-- If email config is not provided, registration still works but welcome email is skipped.
+---
 
 ## Deployment
-### Backend on Render
-1. Create a new Web Service on Render and connect your GitHub repo.
-2. Set the root directory to `backend`.
-3. Use build command:
-   ```bash
-   npm install
-   ```
-4. Use start command:
-   ```bash
-   npm run start
-   ```
-5. Add environment variables in Render:
-   - `MONGO_URI` = your MongoDB Atlas connection string
-   - `JWT_SECRET` = a strong secret
-   - `JWT_EXPIRES_IN` = `2h`
-   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` if you want email support
 
-### Frontend on Vercel
-1. Create a new project on Vercel and connect your GitHub repo.
-2. Set the root directory to `frontend`.
-3. Use build command:
-   ```bash
-   npm run build
-   ```
-4. Set output directory to:
-   ```bash
-   dist
-   ```
+### Backend (Render)
+
+1. Create a new Web Service on Render and connect this repository.
+2. Set the Root Directory to `backend`.
+3. Build command:
+
+```bash
+npm install
+```
+
+4. Start command:
+
+```bash
+npm run start
+```
+
+5. Set environment variables in Render (at minimum):
+
+- `MONGO_URL` (MongoDB Atlas connection string)
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN` (e.g. `2h`)
+
+Optional (for email): `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS`
+
+### Frontend (Vercel)
+
+1. Create a new project on Vercel and connect this repository.
+2. Set the Root Directory to `frontend`.
+3. Build command:
+
+```bash
+npm run build
+```
+
+4. Output Directory: `dist`
 5. Add environment variable:
-   - `VITE_API_BASE_URL` = `https://<your-render-backend-url>/api`
 
-### Production API URL
-In production, the frontend uses `VITE_API_BASE_URL` to communicate with the backend.
-If not set, it falls back to `/api`, which is only suitable for local development with Vite proxy.
+- `VITE_API_BASE_URL` = `https://crm-tracker-5r40.onrender.com/api`
+
+---
+
+## Notes & Best Practices
+
+- The frontend stores the JWT in `localStorage` and sends it in the `Authorization` header for protected requests.
+- The backend enforces ownership checks before allowing updates or deletions.
+- Do not commit secrets to GitHub — use environment variables for all sensitive values.
+- Passwords are hashed with `bcrypt` and never stored in plain text.
+
+## Known Limitations & Future Work
+
+- No pagination or server-side filtering for large lists (planned)
+- Additional search and filter UI (planned)
+- Unit and integration tests (planned)
+- Optional email notifications require SMTP setup (optional)
+
+---
+
+## Contact / Submission
+
+- Live app: https://crm-tracker-opal.vercel.app
+- Repository: https://github.com/mdakram2002/crm-tracker
+- Backend API: https://crm-tracker-5r40.onrender.com
