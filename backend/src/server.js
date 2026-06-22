@@ -7,7 +7,7 @@ const opportunityRoutes = require('./routes/opportunityRoutes');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 
 dotenv.config();
-require('./utils/envCheck');
+// require('./utils/envCheck');
 
 const app = express();
 
