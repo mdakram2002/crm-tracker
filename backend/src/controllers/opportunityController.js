@@ -85,7 +85,7 @@ const deleteOpportunity = async (req, res) => {
     return res.status(403).json({ message: 'Not authorized to delete this opportunity' });
   }
 
-  await opportunity.remove();
+  await Opportunity.deleteOne({ _id: req.params.id });
   res.json({ message: 'Opportunity deleted successfully' });
 };
 
