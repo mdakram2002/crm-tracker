@@ -10,20 +10,24 @@ dotenv.config();
 require('./utils/envCheck');
 
 const app = express();
-app.use(express.json());
 
 const allowedOrigins = [
   'https://crm-tracker-opal.vercel.app',
-  'http://localhost:5173',
+  'http://localhost:5173',              
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      
+      console.log('CORS Request from origin:', origin);
+      
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('CORS policy does not allow this origin'));
+        callback(new Error('Not allowed by CORS'));
       }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -31,7 +35,7 @@ app.use(
     credentials: true,
   })
 );
-app.options('*', cors());
+app.use(express.json());
 
 connectDB();
 
