@@ -66,7 +66,7 @@ npm run dev
 
 ```env
 PORT=4000
-MONGO_URI=mongodb://localhost:27017/crm-tracker
+MONGO_URL=mongodb://localhost:27017/crm-tracker
 JWT_SECRET=your_jwt_secret_here
 JWT_EXPIRES_IN=2h
 # Optional email settings for welcome emails
